@@ -1,7 +1,7 @@
 {
   "name": "doblog",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "doblog",
   "author": "doscanner",
   "private": true,
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "mint-ui": "^2.2.13",
+    "element-ui": "^2.2.1",
     "qs": "^6.5.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"

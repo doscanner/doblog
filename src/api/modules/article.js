@@ -4,21 +4,23 @@ import {
   post
 } from '@/utils/request'
 
-export function getlist(page, size, status, catalogid, keyword, startdate, enddate, orderby) {
+export function search(page, size, keyword, catalogpath, ishighlight, startdate, enddate, orderby) {
   var param = {
-    url: config.api.module.article.getmanagelist,
+    url: config.api.module.article.search,
     data: {
       page: page,
       size: size,
-      status: status,
-      catalogid: catalogid,
       keyword: keyword,
+      catalogpath: catalogpath,
       startdate: startdate,
       enddate: enddate,
-      orderby: orderby
-    }
+      orderby: orderby,
+      ishighlight: ishighlight,
+      status: 1
+    },
+    loading: false
   }
-  return get(param)
+  return post(param)
 }
 
 export function getsingle(pid) {
@@ -26,33 +28,8 @@ export function getsingle(pid) {
     url: config.api.module.article.getsingle,
     data: {
       pid: pid
-    }
+    },
+    loading: false
   }
   return get(param)
-}
-
-export function save(pid, title, content, status, tags, uploadImage, catalogid) {
-  var param = {
-    url: config.api.module.article.save,
-    data: {
-      pid: pid,
-      title: title,
-      content: content,
-      status: status,
-      tags: tags,
-      uploadImage: uploadImage,
-      catalogid: catalogid
-    }
-  }
-  return post(param)
-}
-
-export function deletes(ids) {
-  var param = {
-    url: config.api.module.article.delete,
-    data: {
-      ids: ids
-    }
-  }
-  return post(param)
 }

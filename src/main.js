@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from '@/App'
-import Mint from 'mint-ui'
-import 'mint-ui/lib/style.css'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import VueRouter from 'vue-router'
 import routes from '@/routes'
 import axios from 'axios'
@@ -19,7 +19,10 @@ Vue.config.productionTip = false
 Vue.prototype.$post = post
 Vue.prototype.$get = get
 
-Vue.use(Mint)
+// , {
+//   size: 'medium'
+// }
+Vue.use(ElementUI)
 Vue.use(VueRouter)
 
 const router = new VueRouter({

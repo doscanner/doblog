@@ -1,40 +1,13 @@
 import config from '@/utils/config'
 
 let routes = [{
-    path: '/',
-    component: resolve => require(['@/views/index.vue'], resolve),
-    hidden: true
-  }
-  // {
-  //   path: config.manage.module.login,
-  //   component: resolve => require(['@/views/login.vue'], resolve),
-  //   hidden: true
-  // },
-  // {
-  //   path: config.manage.module.index,
-  //   component: resolve => require(['@/components/sys/main.vue'], resolve),
-  //   children: [{
-  //       path: config.manage.module.user.list,
-  //       component: resolve => require(['@/views/user/list.vue'], resolve),
-  //     }, {
-  //       path: config.manage.module.user.info,
-  //       component: resolve => require(['@/views/user/info.vue'], resolve),
-  //     }, {
-  //       path: config.manage.module.article.list,
-  //       component: resolve => require(['@/views/article/list.vue'], resolve),
-  //     }, {
-  //       path: config.manage.module.article.edit,
-  //       component: resolve => require(['@/views/article/edit.vue'], resolve),
-  //     }, {
-  //       path: config.manage.module.catalog.list,
-  //       component: resolve => require(['@/views/catalog/list.vue'], resolve),
-  //     },
-  //     {
-  //       path: config.manage.module.error,
-  //       component: resolve => require(['@/views/error.vue'], resolve),
-  //     }
-  //   ]
-  // }
-];
+  path: config.web.module.index,
+  component: resolve => require(['@/views/index.vue'], resolve),
+  // hidden: true,
+  children: [{
+    path: config.web.module.article.list,
+    component: resolve => require(['@/views/article/list.vue'], resolve),
+  }]
+}];
 
 export default routes

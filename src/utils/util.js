@@ -6,6 +6,9 @@ const util = {
       } else {
         if (typeof (obj) == 'number') {
           return false;
+        }
+        if (typeof (obj) == 'boolean') {
+          return obj;
         } else {
           return (null == obj || '' == obj || undefined == obj);
         }

@@ -1,33 +1,27 @@
 <template>
-    <mt-tabbar v-model="selected">
-        <mt-tab-item id="外卖">
-            <img slot="icon" src="../assets/100x100.png"> 外卖
-        </mt-tab-item>
-        <mt-tab-item id="订单">
-            <img slot="icon" src="../assets/100x100.png"> 订单
-        </mt-tab-item>
-        <mt-tab-item id="发现">
-            <img slot="icon" src="../assets/100x100.png"> 发现
-        </mt-tab-item>
-        <mt-tab-item id="我的">
-            <img slot="icon" src="../assets/100x100.png"> 我的
-        </mt-tab-item>
-    </mt-tabbar>
+    <div>
+        <v-head></v-head>
+        <v-container></v-container>
+    </div>
 </template>
 
 <script>
-import util from "@/utils/util";
+import vHead from "../components/Header.vue";
+import vContainer from "../components/Container.vue";
 import config from "@/utils/config";
-
 export default {
-  data() {
-    return {
-      selected: "我的"
-    };
+  components: {
+    vHead,
+    vContainer
   },
-  created() {},
-  computed: {},
-  methods: {},
-  watch: {}
+  created() {
+    this.$router.push({ path: config.web.module.article.list });
+  },
+  watch: {
+    $route(to, from) {
+      console.log(to);
+      console.log(to);
+    }
+  }
 };
 </script>
