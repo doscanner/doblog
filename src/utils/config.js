@@ -1,7 +1,7 @@
  const apiurl = 'http://api.doscanner.cn';
- //const apiurl = 'http://localhost:21531';
+ //  const apiurl = 'http://localhost:21531';
  const weburl = 'http://www.doscanner.cn';
-//  const weburl = 'http://localhost:8080';
+ //  const weburl = 'http://localhost:8080';
  const resurl = 'http://res.doscanner.cn';
  //const resurl = 'http://localhost:46940';
  const config = {
@@ -24,7 +24,8 @@
        index: '/',
        error: '/error/:code',
        article: {
-         list: '/article/list'
+         index: '/article/list',
+         list: '/article/list/:path'
        },
      }
    },

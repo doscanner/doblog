@@ -1,36 +1,49 @@
 <template>
   <div class="headerWrapper">
-    <header class="header">
+    <header class="header" ref="header">
       <div class="container">
         <h1>
-          <a href="javascript:void(0)" class="router-link-active" @click="handleSelect('','')">个人博客</a>
+          <!-- <router-link :to="`/${ lang }`">
+            <slot>
+              <img src="../assets/images/element-logo.svg" alt="element-logo" class="nav-logo">
+              <img src="../assets/images/element-logo-small.svg" alt="element-logo" class="nav-logo-small">
+            </slot>
+          </router-link> -->
+          <router-link :to="'/article/list/'" @click.native="handleRouteClick('')">个人博客</router-link>
         </h1>
-        <el-menu class="nav" mode="horizontal" style="border-bottom:none" @select="handleSelect">
+        <a href="https://github.com/doscanner/doblog" target="_blank">
+          <img src="../assets/icon-github.png" class="elementdoc" />
+        </a>
+        <!-- nav -->
+        <ul class="nav">
           <li class="nav-item nav-algolia-search">
-            <el-input size="middle" placeholder="请输入内容" class="algolia-search">
-              <i slot="prefix" class="el-input__icon el-icon-search"></i>
-            </el-input>
+            <algolia-search></algolia-search>
           </li>
-          <template v-for="item in items">
-            <el-menu-item class="nav-item" style="line-height:80px;" :index="item.path" :key="item.pid">{{ item.name }}</el-menu-item>
-          </template>
-        </el-menu>
+          <li class="nav-item" v-for="item in items" :key="item.pid">
+            <router-link active-class="active" :to="'/article/list/'+item.path" @click.native="handleRouteClick(item.path)">{{item.name}}</router-link>
+          </li>
+        </ul>
       </div>
     </header>
   </div>
 </template>
 <script>
+import bus from "../bus";
+import AlgoliaSearch from "./search.vue";
 import config from "@/utils/config";
 import { getcataloglistbypath } from "@/api/modules/catalog";
+
 export default {
   data() {
     return {
+      active: "",
       items: []
     };
   },
-  created() {
-    this.initCatalog();
+  components: {
+    AlgoliaSearch
   },
+  computed: {},
   methods: {
     initCatalog() {
       getcataloglistbypath(config.catalog.path1).then(
@@ -44,23 +57,17 @@ export default {
         err => {}
       );
     },
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+    handleRouteClick(path) {
+      bus.$emit("article-search-catalogpath：", path);
     }
+  },
+  created() {
+    this.initCatalog();
   }
 };
 </script>
+
 <style scoped>
-.header .nav:after {
-  clear: both;
-}
-
-.header .nav:after,
-.header .nav:before {
-  display: table;
-  content: "";
-}
-
 .headerWrapper {
   height: 80px;
 }
@@ -77,58 +84,24 @@ export default {
   position: relative;
 }
 
-/* .header .nav-item.lang-item,
-.header .nav-item:last-child {
-  cursor: default;
-  margin-left: 34px;
-} */
-
-.header .nav-item.lang-item span,
-.header .nav-item:last-child span {
-  opacity: 0.8;
-}
-
-.header .nav-item.lang-item .nav-lang,
-.header .nav-item:last-child .nav-lang {
-  cursor: pointer;
-  display: inline-block;
-  height: 100%;
-  color: #888;
-}
-
-.header .nav-item.lang-item .nav-lang:hover,
-.header .nav-item:last-child .nav-lang:hover {
-  color: #409eff;
-}
-
-.header .nav-item.lang-item .nav-lang.active,
-.header .nav-item:last-child .nav-lang.active {
-  font-weight: 700;
-  color: #409eff;
-}
-
 .header .container {
   height: 100%;
   box-sizing: border-box;
 }
-
 .header .nav-lang-spe {
   color: #888;
 }
-
 .header h1 {
   margin: 0;
   float: left;
   font-size: 32px;
   font-weight: 400;
 }
-
 .header h1 a {
-  color: #333;
+  color: #409eff;
   text-decoration: none;
   display: block;
 }
-
 .header h1 span {
   font-size: 12px;
   display: inline-block;
@@ -141,6 +114,24 @@ export default {
   margin-left: 10px;
   border-radius: 3px;
 }
+.elementdoc {
+  transition: 0.3s;
+  display: inline-block;
+  line-height: 28px;
+  text-align: center;
+  color: #c8d6e8;
+  background-color: transparent;
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+.elementdoc:hover {
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  color: #8d99ab;
+}
 
 .header .nav {
   float: right;
@@ -150,14 +141,12 @@ export default {
   padding: 0;
   margin: 0;
 }
-
 .header .nav-gap {
   position: relative;
   width: 1px;
   height: 80px;
   padding: 0 20px;
 }
-
 .header .nav-gap:before {
   content: "";
   position: absolute;
@@ -166,16 +155,13 @@ export default {
   height: 16px;
   background: #ebebeb;
 }
-
 .header .nav-logo-small,
 .header .nav-logo {
   vertical-align: sub;
 }
-
 .header .nav-logo-small {
   display: none;
 }
-
 .header .nav-item {
   margin: 0;
   float: left;
@@ -183,7 +169,6 @@ export default {
   position: relative;
   cursor: pointer;
 }
-
 .header .nav-item a.active:after {
   content: "";
   display: inline-block;
@@ -194,23 +179,61 @@ export default {
   height: 4px;
   background: #409eff;
 }
-
 .header .nav-item a {
   text-decoration: none;
   color: #888;
   display: block;
   padding: 0 22px;
 }
-
 .header .nav-item a.active,
 .header .nav-item a:hover {
   color: #333;
 }
-
 .header .nav-item.nav-algolia-search {
   cursor: default;
 }
 
+.nav-dropdown {
+  margin-bottom: 6px;
+  padding-left: 18px;
+  width: 100%;
+}
+.nav-dropdown span {
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  color: #888;
+  line-height: 40px;
+  transition: 0.2s;
+  padding-bottom: 6px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.nav-dropdown span:hover {
+  cursor: pointer;
+}
+.nav-dropdown i {
+  transition: 0.2s;
+  font-size: 12px;
+  color: #979797;
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+.nav-dropdown.is-active i,
+.nav-dropdown.is-active span,
+.nav-dropdown:hover i,
+.nav-dropdown:hover span {
+  color: #409eff;
+}
+.nav-dropdown.is-active i {
+  -ms-transform: rotate(180deg) translateY(3px);
+  transform: rotate(180deg) translateY(3px);
+}
+.nav-dropdown-list {
+  width: auto;
+}
 @media (max-width: 850px) {
   .header .nav-logo {
     display: none;
@@ -233,7 +256,6 @@ export default {
     display: none;
   }
 }
-
 @media (max-width: 700px) {
   .header .container {
     padding: 0 12px;
@@ -253,6 +275,12 @@ export default {
   }
   .header .nav-item.lang-item .nav-lang span {
     padding-bottom: 0;
+  }
+  .header .nav-dropdown {
+    padding: 0;
+  }
+  .header .nav-dropdown span {
+    font-size: 12px;
   }
   .header .nav-gap {
     padding: 0 8px;

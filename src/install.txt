@@ -5,3 +5,5 @@ npm i element-ui -S
 npm install vuex --save
 npm install axios --save
 npm install qs --save
+
+npm install throttle-debounce --save

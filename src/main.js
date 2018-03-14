@@ -1,8 +1,9 @@
 import Vue from 'vue'
-import App from '@/App'
+import App from './App'
+import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import VueRouter from 'vue-router'
+
 import routes from '@/routes'
 import axios from 'axios'
 import {
@@ -13,19 +14,20 @@ import {
 import util from "@/utils/util"
 import config from "@/utils/config"
 
+import MainHeader from './components/header.vue';
+
 Vue.config.productionTip = false
 
 //定义全局变量
 Vue.prototype.$post = post
 Vue.prototype.$get = get
 
-// , {
-//   size: 'medium'
-// }
 Vue.use(ElementUI)
 Vue.use(VueRouter)
+Vue.component('main-header', MainHeader);
 
 const router = new VueRouter({
+  mode: 'hash',
   routes
 })
 
@@ -34,6 +36,6 @@ router.beforeEach((to, from, next) => {
 })
 
 const app = new Vue({
-  router,
-  render: h => h(App)
+  render: h => h(App),
+  router
 }).$mount('#app')

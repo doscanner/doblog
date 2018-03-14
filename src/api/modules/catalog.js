@@ -9,8 +9,7 @@ export function getcataloglistbypath(path) {
     url: config.api.module.catalog.getlist,
     data: {
       path: path
-    },
-    loading: false
+    }
   }
   return get(param)
 }

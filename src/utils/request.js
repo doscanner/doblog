@@ -2,7 +2,7 @@ import Qs from 'qs'
 import axios from 'axios'
 import {
   Loading,
-  Message
+  Notification
 } from 'element-ui'
 import auth from '@/utils/auth'
 import config from '@/utils/config'
@@ -24,7 +24,10 @@ var service = axios.create({
 service.interceptors.request.use(function (config) {
   return config;
 }, function (error) {
-  Message.error('请求失败:' + error.message);
+  Notification.error({
+    title: '请求失败',
+    message: error.message
+  });
   return Promise.reject(error);
 });
 
@@ -32,7 +35,10 @@ service.interceptors.request.use(function (config) {
 service.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
-  Message.error('请求失败:' + error.message);
+  Notification.error({
+    title: '请求失败',
+    message: error.message
+  });
   return Promise.reject(error);
 });
 
@@ -60,7 +66,10 @@ const request = (options) => {
       opts.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
     }
   } else {
-    Message.error('不支持' + opts.method + '方法');
+    Notification.error({
+      title: '错误',
+      message: '不支持请求方法：' + opts.method
+    });
   }
 
   //转换 上传文件时 需要填写为false
@@ -95,7 +104,10 @@ const request = (options) => {
         }
         var ret = response.data;
         if (!ret.success && ret.status == config.statuscode.unauthorized) {
-          Message.error('登录身份已失效，请重新登录');
+          Notification.error({
+            title: '错误',
+            message: '登录身份已失效，请重新登录'
+          });
           return;
         }
         resolve(ret);
