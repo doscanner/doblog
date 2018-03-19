@@ -20,8 +20,7 @@ export default {
 </script>
 
 <style lang="css">
-@import "../static/styles/common.css";
-@import "../static/styles/fonts/style.css";
+@import "../static/css/style.css";
 
 html,
 body {

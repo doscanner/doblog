@@ -15,6 +15,7 @@ import util from "@/utils/util"
 import config from "@/utils/config"
 
 import MainHeader from './components/header.vue';
+import MainFooter from './components/footer.vue';
 
 Vue.config.productionTip = false
 
@@ -25,6 +26,7 @@ Vue.prototype.$get = get
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.component('main-header', MainHeader);
+Vue.component('main-footer', MainFooter);
 
 const router = new VueRouter({
   mode: 'hash',

@@ -8,7 +8,7 @@
         <router-view class="content">
 
         </router-view>
-        <!-- <footer-nav></footer-nav> -->
+        <main-footer></main-footer>
       </div>
       <transition name="back-top-fade">
         <div class="page-component-up" :class="{ 'hover': hover }" v-show="showBackToTop" @mouseenter="hover = true" @mouseleave="hover = false" @click="toTop">
@@ -164,8 +164,8 @@ export default {
   padding-bottom: 50px;
 }
 .page-component .page-component__content {
-  /* padding-left: 270px; */
-  padding-bottom: 100px;
+  /* padding-left: 270px; 
+  padding-bottom: 100px;*/
   box-sizing: border-box;
 }
 .page-component .content {

@@ -31,3 +31,13 @@ export function getsingle(pid) {
   }
   return get(param)
 }
+
+export function updatebrowsenum(pid) {
+  var param = {
+    url: config.api.module.article.updatebrowsenum,
+    data: {
+      id: pid
+    }
+  }
+  return post(param)
+}

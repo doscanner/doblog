@@ -54,6 +54,14 @@ const util = {
         }
       }
       return false;
+    },
+    startWith: function (sourcestr, str) {
+      var reg = new RegExp("^" + str);
+      return reg.test(sourcestr);
+    },
+    endWith: function (sourcestr, str) {
+      var reg = new RegExp(str + "$");
+      return reg.test(sourcestr);
     }
   },
   newGuid: function () {

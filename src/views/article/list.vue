@@ -15,7 +15,7 @@
               <div class="bottom clearfix">
                 <time class="time">{{ item.createtime }}</time>
                 <i class="browsenum el-icon-view">{{item.browsenum}}</i>
-                <el-button size="small" type="text" class="button">详情</el-button>
+                <el-button size="small" type="text" class="button" @click="handleDetailClick(item.pid)">详情</el-button>
               </div>
             </div>
           </el-card>
@@ -26,7 +26,6 @@
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="1" :page-sizes="[20, 40, 80]" :page-size="20" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
       </el-pagination>
     </div>
-
   </div>
   <div v-else>
     <div class="el-table__empty-block">
@@ -139,6 +138,11 @@ export default {
     },
     isnull(value) {
       return util.checkvalue.isnull(value);
+    },
+    handleDetailClick(pid) {
+      this.$router.push({
+        path: "/article/detail/" + pid
+      });
     }
   }
 };

@@ -63,27 +63,6 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
-      // ,
-      // {
-      //   test: /\.scss$/,
-      //   loaders: ["style", "css", "sass"]
-      // }
-      // {
-      //   test: /\.css$/,
-      //   use: ['style-loader', 'css-loader', 'postcss-loader']
-      // },
-      // {
-      //   test: /\.scss$/,
-      //   loaders: ["style", "css", "sass"]
-      // }
-      // {
-      //   test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-      //   loader: 'url-loader',
-      //   query: {
-      //     limit: 10000,
-      //     name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-      //   }
-      // }
     ]
   },
   node: {

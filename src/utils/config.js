@@ -10,8 +10,9 @@
      timeout: 10000,
      module: {
        article: {
+         search: apiurl + '/api/article/search',
          getsingle: apiurl + '/api/article/getsingle',
-         search: apiurl + '/api/article/search'
+         updatebrowsenum: apiurl + '/api/article/updatebrowsenum'
        },
        catalog: {
          getlist: apiurl + '/api/catalog/getlist'
@@ -25,7 +26,8 @@
        error: '/error/:code',
        article: {
          index: '/article/list',
-         list: '/article/list/:path'
+         list: '/article/list/:path',
+         detail: '/article/detail/:id'
        },
      }
    },

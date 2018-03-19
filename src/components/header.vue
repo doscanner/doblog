@@ -3,20 +3,16 @@
     <header class="header" ref="header">
       <div class="container">
         <h1>
-          <!-- <router-link :to="`/${ lang }`">
-            <slot>
-              <img src="../assets/images/element-logo.svg" alt="element-logo" class="nav-logo">
-              <img src="../assets/images/element-logo-small.svg" alt="element-logo" class="nav-logo-small">
-            </slot>
-          </router-link> -->
-          <router-link :to="'/article/list/'" @click.native="handleRouteClick('')">个人博客</router-link>
+          <router-link :to="'/article/list/'" @click.native="handleRouteClick('')">
+            <img src="../assets/logo.png" alt="doscanner-logo" class="nav-logo">
+          </router-link>
+          <!-- <router-link :to="'/article/list/'" @click.native="handleRouteClick('')">个人博客</router-link> -->
         </h1>
-        <a href="https://github.com/doscanner/doblog" target="_blank">
+        <!-- <a href="https://github.com/doscanner/doblog" target="_blank">
           <img src="../assets/icon-github.png" class="elementdoc" />
-        </a>
-        <!-- nav -->
+        </a> -->
         <ul class="nav">
-          <li class="nav-item nav-algolia-search">
+          <li class="nav-item nav-algolia-search" v-if="isshow">
             <algolia-search></algolia-search>
           </li>
           <li class="nav-item" v-for="item in items" :key="item.pid">
@@ -30,6 +26,7 @@
 <script>
 import bus from "../bus";
 import AlgoliaSearch from "./search.vue";
+import util from "@/utils/util";
 import config from "@/utils/config";
 import { getcataloglistbypath } from "@/api/modules/catalog";
 
@@ -37,7 +34,8 @@ export default {
   data() {
     return {
       active: "",
-      items: []
+      items: [],
+      isshow: true
     };
   },
   components: {
@@ -63,6 +61,15 @@ export default {
   },
   created() {
     this.initCatalog();
+  },
+  watch: {
+    $route: function(val, oldVal) {
+      if (util.checkvalue.startWith(val.path, "/article/detail")) {
+        this.isshow = false;
+      } else {
+        this.isshow = true;
+      }
+    }
   }
 };
 </script>
@@ -158,6 +165,7 @@ export default {
 .header .nav-logo-small,
 .header .nav-logo {
   vertical-align: sub;
+  height: 48px;
 }
 .header .nav-logo-small {
   display: none;
